@@ -1,40 +1,46 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
-    <header class="navbar">
-        <div class="container nav-container">
-            <div class="logo">
-                <img src="{{ asset('img/logo.png') }}" alt="logo">
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
             </div>
-            <nav class="nav">
-                <a href="">Accueil</a>
-                <a href="">À propos</a>
-                <a href="">Service</a>
-                <a href="">Demande de Devis</a>
-                <a href="">Contact</a>
-            </nav>
-            <div class="burger" onclick="toggleMenu()">
-                <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <use xlink:href="{{ asset('img/sprite.svg') }}#burger"></use>
-                </svg>
-            </div>
+        {% endfor %}
+    {% endfor %}
+
+
+
+    <div class="modal" id="navModal">
+        <div class="modal-content">
+            <button type="submit">X</button>
+            <a href="#" class="modal-link">Accueil</a>
+            <a href="#" class="modal-link">À propos</a>
+            <a href="#" class="modal-link">Service</a>
+            <a href="#" class="modal-link">Demande de Devis</a>
+            <a href="#" class="modal-link">Contact</a>
         </div>
-    </header>
+    </div>
+
     <main>
-        <section>
+        <section class="hero">
             <img src="{{ asset('img/Accueil.png') }}" alt="Accueil">
-            <div>
+            <div class="hero-content">
                 <h2>Votre déménagement en toute sérénité.</h2>
                 <p>Nous prenons en charge votre déménagement de A à Z avec professionnalisme et attention.</p>
             </div>
-            <div>
-                <a href="">demande un devis gratuit</a>
-                <a href="">découvrir nos services</a>
+            <div class="hero-buttons">
+                <a href="#" class="btn">Demande un devis gratuit</a>
+                <a href="#" class="btn">Découvrir nos services</a>
             </div>
         </section>
+
         <section class="calendrier">
-            <table>
-                <caption>Juin 2025</caption>
+            <div class="calendar-header">
+                <button id="prevMonth">&lt;</button>
+                <h3 id="monthYear">Juin 2025</h3>
+                <button id="nextMonth">&gt;</button>
+            </div>
+            <table id="calendarTable">
                 <thead>
                 <tr>
                     <th>Lun</th>
@@ -53,116 +59,131 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>1</td>
-                    <td>2</td>
+                    <td class="calendar-day">1</td>
+                    <td class="calendar-day">2</td>
                 </tr>
                 <tr>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td class="reserved">6</td>
-                    <td>7</td>
-                    <td>8</td>
-                    <td>9</td>
+                    <td class="calendar-day">3</td>
+                    <td class="calendar-day">4</td>
+                    <td class="calendar-day">5</td>
+                    <td class="calendar-day reserved">6</td>
+                    <td class="calendar-day">7</td>
+                    <td class="calendar-day">8</td>
+                    <td class="calendar-day">9</td>
                 </tr>
                 <tr>
-                    <td>10</td>
-                    <td>11</td>
-                    <td>12</td>
-                    <td>13</td>
-                    <td>14</td>
-                    <td>15</td>
-                    <td class="reserved">16</td>
+                    <td class="calendar-day">10</td>
+                    <td class="calendar-day">11</td>
+                    <td class="calendar-day">12</td>
+                    <td class="calendar-day">13</td>
+                    <td class="calendar-day">14</td>
+                    <td class="calendar-day">15</td>
+                    <td class="calendar-day reserved">16</td>
                 </tr>
                 <tr>
-                    <td>17</td>
-                    <td>18</td>
-                    <td>19</td>
-                    <td>20</td>
-                    <td>21</td>
-                    <td>22</td>
-                    <td>23</td>
+                    <td class="calendar-day">17</td>
+                    <td class="calendar-day">18</td>
+                    <td class="calendar-day">19</td>
+                    <td class="calendar-day">20</td>
+                    <td class="calendar-day">21</td>
+                    <td class="calendar-day">22</td>
+                    <td class="calendar-day">23</td>
                 </tr>
                 <tr>
-                    <td>24</td>
-                    <td>25</td>
-                    <td class="reserved">26</td>
-                    <td>27</td>
-                    <td>28</td>
-                    <td>29</td>
-                    <td>30</td>
+                    <td class="calendar-day">24</td>
+                    <td class="calendar-day">25</td>
+                    <td class="calendar-day reserved">26</td>
+                    <td class="calendar-day">27</td>
+                    <td class="calendar-day">28</td>
+                    <td class="calendar-day">29</td>
+                    <td class="calendar-day">30</td>
                 </tr>
                 </tbody>
             </table>
         </section>
+
         <section class="service">
             <h2>Nos services de déménagement</h2>
-            <p>Des solutions adaptées à tout vos besoin de déménagement, qu'il s'agisse d'un petit appartement ou d'une
-                grande maison.</p>
-            <div>
-                <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <use xlink:href="{{ asset('img/sprite.svg') }}#home"></use>
+            <p>Des solutions adaptées à tous vos besoins de déménagement, qu'il s'agisse d'un petit appartement ou d'une grande maison.</p>
+            <div class="service-item">
+                <div class="icon-circle">
+                <svg width="24" height="24" >
+                    <use href="{{ asset('img/sprite.svg') }}#home"></use>
                 </svg>
+            </div>
                 <h3>Déménagement résidentiel</h3>
-                <p>Notre équipe prend en charge votre déménagement résidentiel avec soin et éfficacité, du petit studiot
-                    à la grande maison familiale.</p>
-                <a href="">En savoir plus</a></div>
-            <div>
-                <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <p>Notre équipe prend en charge votre déménagement résidentiel avec soin et efficacité, du petit studio à la grande maison familiale.</p>
+                <a href="#" class="btn">En savoir plus</a>
+            </div>
+            <div class="service-item">
+                <div class="icon-circle">
+                <svg  xmlns:xlink="http://www.w3.org/1999/xlink">
                     <use xlink:href="{{ asset('img/sprite.svg') }}#building"></use>
                 </svg>
+            </div>
                 <h3>Déménagement d'entreprise</h3>
-                <p>Nous organisons votre déménagement professionnel pour minimiser l'impact sur votre activité avec une
-                    planification minutieuse.</p>
-                <a href="">En savoir plus</a></div>
-            <div>
-                <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <p>Nous organisons votre déménagement professionnel pour minimiser l'impact sur votre activité avec une planification minutieuse.</p>
+                <a href="#" class="btn">En savoir plus</a>
+            </div>
+            <div class="service-item">
+                <div class="icon-circle">
+                <svg viewBox="0 0 24 24" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <use xlink:href="{{ asset('img/sprite.svg') }}#ring"></use>
                 </svg>
+                </div>
                 <h3>Emballage et protection</h3>
-                <p>Service complet d'emballage et de protection de vos bien avec des matériaux de qualité pour assurer
-                    leur sécurité pendant le transport.</p>
-                <a href="">En savoir plus</a></div>
+                <p>Service complet d'emballage et de protection de vos biens avec des matériaux de qualité pour assurer leur sécurité pendant le transport.</p>
+                <a href="#" class="btn">En savoir plus</a>
+            </div>
         </section>
+
         <section class="choix">
             <h2>Pourquoi nous choisir ?</h2>
-            <p>Nous nous engageons à offrir un service de déménagement de qualité supérieure avec une attention
-                particulière aux détails. </p>
-            <div>
+            <p>Nous nous engageons à offrir un service de déménagement de qualité supérieure avec une attention particulière aux détails.</p>
+            <div class="choix-item">
+                <div class="icon-circle">
                 <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <use xlink:href="{{ asset('img/sprite.svg') }}#shield"></use>
                 </svg>
-                <h3>Fiabilité</h3>
-                <p>Plus de 5 ans d'expérience et de milliers de clients satisfaits. </p>
             </div>
-            <div>
+                <h3>Fiabilité</h3>
+                <p>Plus de 5 ans d'expérience et des milliers de clients satisfaits.</p>
+            </div>
+            <div class="choix-item">
+                <div class="icon-circle">
                 <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <use xlink:href="{{ asset('img/sprite.svg') }}#communaute"></use>
                 </svg>
-                <h3>Équipe qualifiée</h3>
-                <p>Personnel formé et expérimenté pour manipuler vos bien avec soin.</p>
             </div>
-            <div>
+                <h3>Équipe qualifiée</h3>
+                <p>Personnel formé et expérimenté pour manipuler vos biens avec soin.</p>
+            </div>
+            <div class="choix-item">
+                <div class="icon-circle">
                 <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <use xlink:href="{{ asset('img/sprite.svg') }}#market"></use>
                 </svg>
+            </div>
                 <h3>Prix transparent</h3>
                 <p>Devis détaillé sans frais cachés et adapté à votre budget.</p>
             </div>
-            <div>
+            <div class="choix-item">
+                <div class="icon-circle">
                 <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <use xlink:href="{{ asset('img/sprite.svg') }}#earphone"></use>
                 </svg>
+            </div>
                 <h3>Service client</h3>
-                <p>Accompagnement personalisé tout au long de votre déménagement.</p>
+                <p>Accompagnement personnalisé tout au long de votre déménagement.</p>
             </div>
         </section>
+
         <section class="clients">
             <h2>Ce que disent nos clients</h2>
-            <p>Découvrez les témoignages de nos clients satisfaits par notre services de déménagement.</p>
-            <div>
-                <p>Service impeccable ! L'équipe a été trés professionnelle et attentionnée avec nos meubles. Rien n'a
-                    été endommagé et ils ont respecté les détails. Je recommande vivement </p>
+            <p>Découvrez les témoignages de nos clients satisfaits par notre service de déménagement.</p>
+            <div class="client-item">
+                <div class="stars">★★★★★</div>
+                <p>Service impeccable ! L'équipe a été très professionnelle et attentionnée avec nos meubles. Rien n'a été endommagé et ils ont respecté les délais. Je recommande vivement.</p>
                 <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <use xlink:href="{{ asset('img/sprite.svg') }}#person"></use>
                 </svg>
@@ -170,48 +191,15 @@
                 <p>Déménagement Paris -> Corbeil-Essonne</p>
             </div>
         </section>
+
         <section class="devis">
-            <h2>Prêt à planifier votre déménagement ? </h2>
-            <p>Contactez-nous dès aujourd'hui pour obtenir un devis gratuit et personalisé pour votre prochain
-                déménagement.</p>
-            <div>
-                <a href="">Demander un Devis</a>
-                <a href="">Nous contacter</a>
+            <h2>Prêt à planifier votre déménagement ?</h2>
+            <p>Contactez-nous dès aujourd'hui pour obtenir un devis gratuit et personnalisé pour votre prochain déménagement.</p>
+            <div class="devis-buttons">
+                <a href="#" class="btn">Demander un Devis</a>
+                <a href="#" class="btn">Nous contacter</a>
             </div>
         </section>
     </main>
-    <footer>
-        <h2>A propos de nous</h2>
-        <p>Entreprise de déménagement professionnelle avec plus de 5ans d'expériences. Nous offrons des services
-            complets pour les particuliers et les entreprises.</p>
-        <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <use xlink:href="{{ asset('img/sprite.svg') }}#facebook"></use>
-        </svg>
-        <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <use xlink:href="{{ asset('img/sprite.svg') }}#instagram"></use>
-        </svg>
-        <h3>Liens Rapide</h3>
-        <a href="">Accueil</a>
-        <a href="">À propos</a>
-        <a href="">Services</a>
-        <a href="">Demande un Devis</a>
-        <a href="">Blog</a>
-        <a href="">Contact</a>
-        <h4>Contact</h4>
-        <div class="contact-item">
-            <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <use xlink:href="{{ asset('img/sprite.svg') }}#mail"></use>
-            </svg>
-            <p>oge.montemeuble@gmail.com</p>
-        </div>
-        <div class="contact-item">
-            <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <use xlink:href="{{ asset('img/sprite.svg') }}#phone"></use>
-            </svg>
-            <p>07 67 16 11 72</p>
-        </div>
-        <h5>Horaires d'ouverture</h5>
-        <p>Du lundi au samedi de 7h00 à 19h00</p>
-        © 2025 OgeMonteMeuble - Tous droits réservés
-    </footer>
+
 {% endblock %}

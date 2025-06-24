@@ -1,0 +1,632 @@
+/* ======= VARIABLES ======= */
+:root {
+    --blue-primary: #1041b6;
+    --blue-secondary: #d1d7f9;
+    --no-dispo: #edc5c5;
+    --dispo: #afe6af;
+    --num-dispo: #039d15;
+    --num-no-dispo: #db0202;
+    --footer: #0e1828;
+    --white: #ffffff;
+    --black: #000000;
+    --grey-light: #f4f4f4;
+    --text-dark: #333333;
+    --radius: 10px;
+    --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+/* ======= BASE ======= */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--white);
+    color: var(--text-dark);
+    padding: 0 20px;
+}
+
+/* ======= HEADER & NAVBAR ======= */
+.navbar {
+    background-color: var(--white);
+    border-bottom: 1px solid var(--grey-light);
+    padding: 1rem;
+    position: relative;
+    z-index: 10;
+    border-bottom: 1px solid var(--shadow);
+    box-shadow: 0 2px 4px rgba(16, 65, 182, 0.1);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .burger {
+        display: block;
+    }
+
+    .nav {
+        display: none;
+    }
+}
+
+.logo img {
+    height: 60px;
+}
+
+/* ======= MODAL MENU ======= */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+    justify-content: flex-start;
+    align-items: flex-start;
+    z-index: 20;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: var(--blue-secondary);
+    width: 80%;
+    height: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.modal-content button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    align-self: flex-end;
+    cursor: pointer;
+}
+
+.modal-link {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--black);
+    text-decoration: none;
+}
+
+/* ======= HERO SECTION ======= */
+.hero {
+    position: relative;
+    text-align: left;
+}
+
+.hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.hero-content {
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    color: var(--text-dark);
+    max-width: 90%;
+}
+
+.hero-content h2 {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.hero-content p {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+}
+
+/* ======= HERO BUTTONS ======= */
+.hero-buttons {
+    position: absolute;
+    bottom: 10%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 33px;
+    gap: 5rem;
+}
+
+.hero-buttons .btn {
+    flex: 1;
+    text-align: center;
+    padding: 1.5rem 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: var(--radius);
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.hero-buttons .btn:first-child {
+    background-color: var(--blue-primary);
+    color: var(--white);
+    font-size: 1.5rem;
+}
+
+.hero-buttons .btn:last-child {
+    background-color: var(--white);
+    color: var(--black);
+    border: 1px solid var(--black);
+    font-size: 1.5rem
+}
+
+/* ======= CALENDAR SECTION ======= */
+.calendrier {
+    margin: 2rem auto;
+    max-width: 95%;
+    background-color: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    padding: 1rem;
+}
+
+.calendar-header {
+    background-color: var(--blue-primary);
+    color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border-top-left-radius: var(--radius);
+    border-top-right-radius: var(--radius);
+}
+
+.calendar-header button {
+    background: none;
+    color: var(--white);
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+}
+
+.calendar-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+#calendarTable {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+#calendarTable th,
+#calendarTable td {
+    border: 1px solid var(--black);
+    text-align: center;
+    padding: 0.6rem;
+    font-size: 0.9rem;
+}
+
+#calendarTable th {
+    background-color: var(--grey-light);
+}
+
+.calendar-day {
+    background-color: var(--dispo);
+    color: var(--num-dispo)
+}
+
+.calendar-day.reserved {
+    background-color: var(--no-dispo);
+    color: var(--num-no-dispo);
+}
+
+#calendarTable td:last-child {
+    background-color: var(--white);
+    color: black;
+
+}
+
+#calendarTable td {
+    height: 50px;
+}
+
+/* services */
+.service {
+    padding: 2rem 58px;
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
+}
+
+.service h2 {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.service > p {
+    text-align: center;
+    font-size: 16px;
+    color: var(--text-dark);
+    margin-bottom: 2rem;
+}
+
+.service-item {
+    background-color: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.5rem 1.5rem 1.5rem 19px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    min-height: 340px;
+}
+
+/* SVG icône */
+.icon-circle {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    background-color: var(--blue-secondary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.icon-circle svg {
+    position: relative;
+    top: 2px;
+    width: 28px;
+    height: 28px;
+    display: block;
+    vertical-align: middle;
+}
+
+.service-item h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--black);
+    margin: 0;
+}
+
+.service-item p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-dark);
+    margin: 0;
+    white-space: normal;
+    word-break: break-word;
+}
+
+.service-item a {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--blue-primary);
+    text-decoration: none;
+    margin-top: auto;
+}
+
+.service-item a::after {
+    content: ' →';
+}
+.choix {
+    background-color: var(--blue-secondary);
+    padding: 2rem 111px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.choix h2 {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.choix > p {
+    font-size: 16px;
+    text-align: center;
+    max-width: 600px;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+}
+
+/* Cartes */
+.choix-item {
+    width: 272px;
+    height: 186px;
+    background-color: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+}
+
+/* Cercle avec SVG */
+.choix-item .icon-circle {
+    width: 50px;
+    height: 50px;
+    background-color: var(--blue-secondary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.choix-item .icon-circle svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--blue-primary);
+    display: block;
+}
+
+/* Titre & texte */
+.choix-item h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--black);
+}
+
+.choix-item p {
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0;
+    color: var(--text-dark);
+}
+/* ======= TÉMOIGNAGES CLIENTS ======= */
+.clients {
+    padding: 2rem 30px;
+    text-align: center;
+}
+
+.clients h2 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.clients > p {
+    font-size: 14px;
+    color: var(--text-dark);
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+.client-item {
+    background-color: var(--white);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    position: relative;
+    padding: 1.5rem 1.5rem 1.5rem;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+/* Bordure bleue arrondie en haut */
+.client-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background-color: var(--blue-primary);
+    border-top-left-radius: var(--radius);
+    border-top-right-radius: var(--radius);
+}
+
+/* Étoiles (note) */
+.client-item .stars {
+    color: gold;
+    font-size: 18px;
+    margin-bottom: 0.5rem;
+}
+
+/* Citation */
+.client-item > p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-dark);
+    margin-bottom: 1.2rem;
+}
+
+/* Profil client */
+.client-item svg {
+    width: 30px;
+    height: 30px;
+    fill: var(--grey-light);
+    margin-right: 0.5rem;
+}
+
+.client-item h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.client-item .client-desc {
+    font-size: 14px;
+    color: var(--text-dark);
+    margin: 0.2rem 0 0 38px;
+}
+/* ======= SECTION DEVIS ======= */
+.devis {
+    background-color: var(--blue-primary);
+    color: var(--white);
+    padding: 2.5rem 30px;
+    text-align: center;
+    height: 353px;
+}
+
+.devis h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 50px;
+}
+
+.devis p {
+    font-size: 15px;
+    margin-inline: auto;
+    margin-bottom: 40px;
+
+}
+
+/* Conteneur vertical pour les boutons */
+.devis-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 39px;
+    align-items: center;
+}
+
+/* Bouton : Demander un devis */
+.devis-buttons .btn:nth-child(1) {
+    width: 177px;
+    height: 36px;
+    line-height: 36px;
+    background-color: var(--white);
+    color: var(--blue-primary);
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: var(--radius);
+    text-align: center;
+    text-decoration: none;
+}
+
+/* Bouton : Nous contacter */
+.devis-buttons .btn:nth-child(2) {
+    width: 145px;
+    height: 36px;
+    line-height: 36px;
+    background-color: transparent;
+    color: var(--white);
+    font-weight: 700;
+    font-size: 15px;
+    border: 2px solid var(--white);
+    border-radius: var(--radius);
+    text-align: center;
+    text-decoration: none;
+}
+/* ======= FOOTER ======= */
+footer {
+    background-color: #0e1828;
+    color: #ffffff;
+    padding: 2.5rem 30px;
+    font-family: 'Arial', sans-serif;
+}
+
+.footer-content,
+.footer-links,
+.footer-contact,
+.footer-hours {
+    margin-bottom: 2rem;
+}
+
+.footer-content h2,
+.footer-links h3,
+.footer-contact h4,
+.footer-hours h5 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.footer-content p,
+.footer-links a,
+.footer-contact p,
+.footer-hours p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #ccc;
+    margin: 0.3rem 0;
+}
+
+.footer-links a {
+    display: block;
+    text-decoration: none;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-icons svg {
+    width: 30px;
+    height: 30px;
+    background-color: #1e2633;
+    padding: 0.3rem;
+    border-radius: 50%;
+    fill: #fff;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+}
+
+.contact-item svg {
+    width: 20px;
+    height: 20px;
+    fill: #ffffff;
+}
+
+footer hr {
+    border-top: 2px solid #ccc;
+    margin: 2rem 0 1rem;
+}
+
+footer .copyright {
+    font-size: 13px;
+    color: #ccc;
+    text-align: center;
+}
+/* ======= RESPONSIVE ======= */
+@media (min-width: 768px) {
+    .nav-container {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .burger {
+        display: none;
+    }
+
+    .nav {
+        display: block;
+    }
+
+    .hero-content h2 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1.2rem;
+    }
+
+    .hero-buttons .btn {
+        font-size: 1rem;
+    }
+}

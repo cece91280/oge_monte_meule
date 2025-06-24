@@ -6,11 +6,13 @@ use App\Repository\UsersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -47,6 +49,20 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $last_connection = null;
+
+    /**
+     * @var Collection<int, Devis>
+     */
+    #[ORM\OneToMany(targetEntity: Devis::class, mappedBy: 'users')]
+    private Collection $devis;
+
+    #[ORM\Column]
+    private bool $isVerified = false;
+
+    public function __construct()
+    {
+        $this->devis = new ArrayCollection();
+    }
 
 
 
@@ -179,6 +195,48 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastConnection(?\DateTimeImmutable $last_connection): static
     {
         $this->last_connection = $last_connection;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Devis>
+     */
+    public function getDevis(): Collection
+    {
+        return $this->devis;
+    }
+
+    public function addDevi(Devis $devi): static
+    {
+        if (!$this->devis->contains($devi)) {
+            $this->devis->add($devi);
+            $devi->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDevi(Devis $devi): static
+    {
+        if ($this->devis->removeElement($devi)) {
+            // set the owning side to null (unless already changed)
+            if ($devi->getUsers() === $this) {
+                $devi->setUsers(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

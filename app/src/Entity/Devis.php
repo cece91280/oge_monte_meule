@@ -43,6 +43,16 @@ class Devis
     #[ORM\JoinColumn(nullable: false)]
     private ?Adresses $adresses_depart = null;
 
+    #[ORM\ManyToOne(inversedBy: 'devis')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Users $users = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $volume = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $commentaire = null;
+
 
 
     public function __construct()
@@ -174,6 +184,42 @@ class Devis
     public function setAdressesDepart(Adresses $adresses_depart): static
     {
         $this->adresses_depart = $adresses_depart;
+
+        return $this;
+    }
+
+    public function getUsers(): ?Users
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?Users $users): static
+    {
+        $this->users = $users;
+
+        return $this;
+    }
+
+    public function getVolume(): ?float
+    {
+        return $this->volume;
+    }
+
+    public function setVolume(?float $volume): static
+    {
+        $this->volume = $volume;
+
+        return $this;
+    }
+
+    public function getCommentaire(): ?string
+    {
+        return $this->commentaire;
+    }
+
+    public function setCommentaire(?string $commentaire): static
+    {
+        $this->commentaire = $commentaire;
 
         return $this;
     }
