@@ -35,6 +35,10 @@ class Adresses
     #[ORM\OneToOne(mappedBy: 'adresses_depart', cascade: ['persist', 'remove'])]
     private ?Devis $devis_depart = null;
 
+    #[ORM\ManyToOne(inversedBy: 'adresses')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?TypeBiens $typeBiens = null;
+
 
 
     public function getId(): ?int
@@ -132,6 +136,18 @@ class Adresses
         }
 
         $this->devis_depart = $devis_depart;
+
+        return $this;
+    }
+
+    public function getTypeBiens(): ?TypeBiens
+    {
+        return $this->typeBiens;
+    }
+
+    public function setTypeBiens(?TypeBiens $typeBiens): static
+    {
+        $this->typeBiens = $typeBiens;
 
         return $this;
     }

@@ -2,63 +2,69 @@
 
 namespace App\Form;
 
-use App\Entity\Adresses;
 use App\Entity\Devis;
+
 use App\Entity\Prestations;
-use App\Entity\TypeBiens;
+use App\Entity\Users;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 
 class DevisTypeForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('typeBien', EntityType::class, [
-                'class' => TypeBiens::class ,
-                'choice_label' => 'nom',
-                'placeholder' => 'Choisissez un type de bien',
-            ])
             ->add('volume', NumberType::class, [
                 'required' => false,
                 'label' => 'Volume approximatif (m²)',
             ])
-            ->add('date_demenagement', DateTimeType::class, [
+            ->add('dateDemenagement', DateTimeType::class, [
                 'widget' => 'single_text',
             ])
-            ->add('adresses_arriver', EntityType::class, [
-                'class' => Adresses::class,
-                'choice_label' => 'adressesNom',
+            ->add('adressesArriver', AdressesTypeForm::class, [
+                'label' => false,
             ])
-            ->add('adresses_depart', EntityType::class, [
-                'class' => Adresses::class,
-                'choice_label' => 'adressesNom',
+            ->add('adressesDepart', AdressesTypeForm::class, [
+                'label' => false,
             ])
-            ->add('prestations', EntityType::class, [
-                'class' => Prestations::class,
-                'choice_label' => 'Nom',
-                'multiple' => true,
-                'expanded' => true,
+            ->add('devisPrestations', CollectionType::class, [
+                'entry_type' => DevisPrestationsTypeForm::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'by_reference' => false,
+                'label' => 'Services supplémentaires souhaités'
             ])
             ->add('users', EntityType::class, [
                 'class' => Users::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nom'
             ])
-            ->add('prixEstime', MoneyType::class, [
-                'currency' => 'EUR',
+            ->add('commentaire', TextareaType::class, [
+                'required' => false,
+                'label' => 'Commentaires ou précisions supplémentaires',
+                'attr' => ['placeholder' => 'Ajouter  ici tout information utile...']
             ])
-        ;
+            ->add('prestations', EntityType::class, [
+                'class' => Prestations::class,
+                'choice_label' => 'nom',
+                'multiple' => true,
+                'expanded' => true,
+                'mapped' => false,
+                'label' => 'Choisissez les prestations souhaitées',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Devis::class,
+
         ]);
     }
 }

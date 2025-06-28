@@ -1,20 +1,74 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DevisController!{% endblock %}
+{% block title %}Créer un devis{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="container mt-5">
+        <h1 class="mb-4">Demande de devis</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Users/cedricdasilvavieira/Desktop/oge_monte_meuble/app/src/Controller/DevisController.php</code></li>
-        <li>Your template at <code>/Users/cedricdasilvavieira/Desktop/oge_monte_meuble/app/templates/devis/index.html.twig</code></li>
-    </ul>
-</div>
+        {{ form_start(form) }}
+
+        <h4>Informations générales</h4>
+        <div class="mb-3">
+            {{ form_row(form.volume) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(form.dateDemenagement) }}
+        </div>
+
+        <hr>
+        <h4>Adresse de départ</h4>
+        <div class="mb-3">
+            {{ form_row(form.adressesDepart.adresse_nom) }}
+            {{ form_row(form.adressesDepart.ville) }}
+            {{ form_row(form.adressesDepart.code_postal) }}
+            {{ form_row(form.adressesDepart.etage) }}
+            {{ form_row(form.adressesDepart.ascenseur) }}
+            {{ form_row(form.adressesDepart.typeBiens) }}
+        </div>
+
+        <hr>
+        <h4>Adresse d’arrivée</h4>
+        <div class="mb-3">
+            {{ form_row(form.adressesArriver.adresse_nom) }}
+            {{ form_row(form.adressesArriver.ville) }}
+            {{ form_row(form.adressesArriver.code_postal) }}
+            {{ form_row(form.adressesArriver.etage) }}
+            {{ form_row(form.adressesArriver.ascenseur) }}
+            {{ form_row(form.adressesArriver.typeBiens) }}
+        </div>
+
+        <hr>
+        <h4>Prestations souhaitées</h4>
+
+        <div class="mb-3">
+            {{ form_row(form.prestations) }} {# ✅ CASES À COCHER #}
+        </div>
+
+        <div data-controller="collection" data-collection-allow-add-value="true">
+            {% for prestationForm in form.devisPrestations %}
+                <div class="border p-3 rounded mb-3">
+                    {{ form_row(prestationForm.prestation) }}
+                    {{ form_row(prestationForm.dateDebut) }}
+                    {{ form_row(prestationForm.dateFin) }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <hr>
+        <h4>Commentaires</h4>
+        <div class="mb-3">
+            {{ form_row(form.commentaire) }}
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">Envoyer le devis</button>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
 {% endblock %}

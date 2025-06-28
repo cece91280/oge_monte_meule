@@ -10,16 +10,7 @@
 
 
 
-    <div class="modal" id="navModal">
-        <div class="modal-content">
-            <button type="submit">X</button>
-            <a href="#" class="modal-link">Accueil</a>
-            <a href="#" class="modal-link">À propos</a>
-            <a href="#" class="modal-link">Service</a>
-            <a href="#" class="modal-link">Demande de Devis</a>
-            <a href="#" class="modal-link">Contact</a>
-        </div>
-    </div>
+
 
     <main>
         <section class="hero">
@@ -29,7 +20,7 @@
                 <p>Nous prenons en charge votre déménagement de A à Z avec professionnalisme et attention.</p>
             </div>
             <div class="hero-buttons">
-                <a href="#" class="btn">Demande un devis gratuit</a>
+                <a href="{{ path('app_devis_nouveau') }}" class="btn">Demande un devis gratuit</a>
                 <a href="#" class="btn">Découvrir nos services</a>
             </div>
         </section>
@@ -66,7 +57,7 @@
                     <td class="calendar-day">3</td>
                     <td class="calendar-day">4</td>
                     <td class="calendar-day">5</td>
-                    <td class="calendar-day reserved">6</td>
+                    <td class="calendar-day">6</td>
                     <td class="calendar-day">7</td>
                     <td class="calendar-day">8</td>
                     <td class="calendar-day">9</td>
@@ -78,7 +69,7 @@
                     <td class="calendar-day">13</td>
                     <td class="calendar-day">14</td>
                     <td class="calendar-day">15</td>
-                    <td class="calendar-day reserved">16</td>
+                    <td class="calendar-day">16</td>
                 </tr>
                 <tr>
                     <td class="calendar-day">17</td>
@@ -92,7 +83,7 @@
                 <tr>
                     <td class="calendar-day">24</td>
                     <td class="calendar-day">25</td>
-                    <td class="calendar-day reserved">26</td>
+                    <td class="calendar-day">26</td>
                     <td class="calendar-day">27</td>
                     <td class="calendar-day">28</td>
                     <td class="calendar-day">29</td>
@@ -196,7 +187,7 @@
             <h2>Prêt à planifier votre déménagement ?</h2>
             <p>Contactez-nous dès aujourd'hui pour obtenir un devis gratuit et personnalisé pour votre prochain déménagement.</p>
             <div class="devis-buttons">
-                <a href="#" class="btn">Demander un Devis</a>
+                <a href="{{ path('app_devis_nouveau') }}" class="btn">Demander un Devis</a>
                 <a href="#" class="btn">Nous contacter</a>
             </div>
         </section>

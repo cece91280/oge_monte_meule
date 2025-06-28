@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TypeBiensRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TypeBiensRepository::class)]
@@ -16,9 +18,17 @@ class TypeBiens
     #[ORM\Column(length: 50)]
     private ?string $nom = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Adresses $adresses = null;
+    /**
+     * @var Collection<int, Adresses>
+     */
+    #[ORM\OneToMany(targetEntity: Adresses::class, mappedBy: 'typeBiens')]
+    private Collection $adresses;
+
+    public function __construct()
+    {
+        $this->adresses = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -37,14 +47,32 @@ class TypeBiens
         return $this;
     }
 
-    public function getAdresses(): ?Adresses
+    /**
+     * @return Collection<int, Adresses>
+     */
+    public function getAdresses(): Collection
     {
         return $this->adresses;
     }
 
-    public function setAdresses(Adresses $adresses): static
+    public function addAdress(Adresses $adress): static
     {
-        $this->adresses = $adresses;
+        if (!$this->adresses->contains($adress)) {
+            $this->adresses->add($adress);
+            $adress->setTypeBiens($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdress(Adresses $adress): static
+    {
+        if ($this->adresses->removeElement($adress)) {
+            // set the owning side to null (unless already changed)
+            if ($adress->getTypeBiens() === $this) {
+                $adress->setTypeBiens(null);
+            }
+        }
 
         return $this;
     }

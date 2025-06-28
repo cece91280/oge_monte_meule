@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Devis;
+use App\Entity\DevisPrestations;
 use App\Form\DevisTypeForm;
+use App\Repository\DevisRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -16,18 +19,54 @@ final class DevisController extends AbstractController
     public function nouveau(Request $request, EntityManagerInterface $entityManager): Response
     {
         $devis = new Devis();
+
+
         $form =$this->createForm(DevisTypeForm::class,$devis);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $devis->setUsers($this->getUser());
+
+            $total = 0;
+
+            $prestationsChoisies = $form->get('prestations')->getData();
+
+            foreach ($prestationsChoisies as $prestation) {
+                $devisPrestation = new DevisPrestations();
+                $devisPrestation->setDevis($devis);
+                $devisPrestation->setPrestations($prestation);
+
+                $devisPrestation->setDateDebut(new \DateTimeImmutable());
+                $devisPrestation->setDateFin(new \DateTimeImmutable('+1 day'));
+
+
+                $entityManager->persist($devisPrestation);
+
+                $total += $prestation->getPrixDeBase();
+
+            }
+            $devis->setPrixEstime($total);
             $entityManager->persist($devis);
             $entityManager->flush();
 
-            $this->Addflash("success", "Votre devis est bien enregister");
+            $this->addflash("success", "Votre devis est bien enregister");
             return $this->redirectToRoute('app_home');
         }
         return $this->render('devis/nouveau.html.twig', [
-            'form' => $form
+            'form' => $form->createView(),
         ]);
+    }
+    #[Route('/api/reserved-days', name: 'api_reserved_days')]
+    public function reservedDays(DevisRepository $repo): JsonResponse
+    {
+        $devis = $repo->findAll();
+        $dates = [];
+
+        foreach ($devis as $d) {
+            if ($d->getDateDemenagement()) {
+                $dates[] = $d->getDateDemenagement()->format('Y-n-j');
+            }
+        }
+
+        return $this->json($dates);
     }
 }

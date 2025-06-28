@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const calendarBody = document.querySelector("#calendarTable tbody");
 
     let currentDate = new Date(2025, 5); // Juin = mois 5 (0-indexed)
-
+    let reservedDates = [];
     function renderCalendar(date) {
         const year = date.getFullYear();
         const month = date.getMonth();
@@ -48,9 +48,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // Exemple de jours réservés ou disponibles (à adapter dynamiquement)
                     const dateStr = `${year}-${month + 1}-${day}`;
-                    if (["2025-6-6", "2025-6-16", "2025-6-26"].includes(dateStr)) {
+                    if (reservedDates.includes(dateStr)) {
                         cell.classList.add("reserved");
-                    } else if (["2025-6-25"].includes(dateStr)) {
+                    } else {
                         cell.classList.add("disponible");
                     }
 
@@ -62,6 +62,17 @@ document.addEventListener("DOMContentLoaded", function () {
             calendarBody.appendChild(row);
         }
     }
+
+    fetch('/api/reserved-days')
+        .then(response => response.json())
+        .then(data => {
+            reservedDates = data;
+            renderCalendar(currentDate);
+        })
+        .catch(error => {
+            console.error("Erreur lors du chargement des dates réservées :", error);
+            renderCalendar(currentDate);
+        });
 
     // Navigation
     prevBtn.addEventListener("click", () => {
