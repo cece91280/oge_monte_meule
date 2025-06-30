@@ -87,14 +87,21 @@ body {
 .modal-nav{
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+
+}
+.modal-connect{
+    text-decoration: none;
+    color: var(--black);
 }
 .modal-content button {
     background: none;
     border: none;
     font-size: 1.5rem;
     font-weight: bold;
-    align-self: flex-end;
     cursor: pointer;
+
 }
 
 .modal-link {
@@ -193,8 +200,11 @@ body {
 }
 
 .calendar-header button {
-    background: none;
-    color: var(--white);
+    background: var(--grey-light);
+    border-radius: 5px;
+    height: 30px;
+    width:30px;
+    color: var(--black);
     font-size: 1.2rem;
     border: none;
     cursor: pointer;

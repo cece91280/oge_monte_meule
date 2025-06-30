@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+    <section>
+        <h2>Mes informations</h2>
+        <ul>
+            <li><strong>Nom</strong>{{ users.nom }}</li>
+            <li><strong>Prénom</strong>{{ users.prenom }}</li>
+            <li><strong>Email</strong>{{ users.email }}</li>
+            <li><strong>Téléphone</strong>{{ users.telephone }}</li>
+        </ul>
+    </section>
+    <section>
+        <h2>Mes devis</h2>
+
+        {% if devis is empty %}
+        <p>Vous n'avez as encore de devis</p>
+        {% else %}
+        <table>
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Volume</th>
+                <th>Statut</th>
+                <th>Prix estimé</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for d in devis %}
+                <tr>
+                    <td>{{ d.devis.dateDemenagement|date('d/m/y') }}</td>
+                    <td>{{ d.devis.volume }} m²</td>
+                    <td>{{ d.statut }}</td>
+                    <td>{{ d.devis.prixEstime }} €</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </section>
+{% endblock %}
+

@@ -4,6 +4,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Prestations;
+use App\Entity\Status;
 use App\Entity\TypeBiens;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -13,9 +14,12 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class keywordsFixtures extends Fixture
 {
     private SluggerInterface $slugger;
-    public function __construct(SluggerInterface $slugger){
+
+    public function __construct(SluggerInterface $slugger)
+    {
         $this->slugger = $slugger;
     }
+
     public function load(ObjectManager $manager): void
     {
         // ===== Type de Biens ===== //
@@ -28,7 +32,14 @@ class keywordsFixtures extends Fixture
 
             $manager->persist($typeBien);
         }
+        // ===== Statuts ===== //
+        $statuts = ['En attente', 'Accepté', 'Refusé', 'Terminé', 'Annulé'];
 
+        foreach ($statuts as $nom) {
+            $status = new Status();
+            $status->setNom($nom);
+            $manager->persist($status);
+        }
         // ===== Prestations ===== //
         $prestations = [
             [

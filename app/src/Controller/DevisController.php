@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Devis;
 use App\Entity\DevisPrestations;
+use App\Entity\DevisStatus;
+use App\Entity\Status;
 use App\Form\DevisTypeForm;
 use App\Repository\DevisRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,7 +21,6 @@ final class DevisController extends AbstractController
     public function nouveau(Request $request, EntityManagerInterface $entityManager): Response
     {
         $devis = new Devis();
-
 
         $form =$this->createForm(DevisTypeForm::class,$devis);
         $form->handleRequest($request);
@@ -47,6 +48,17 @@ final class DevisController extends AbstractController
             $devis->setPrixEstime($total);
             $entityManager->persist($devis);
             $entityManager->flush();
+
+            $status =$entityManager->getRepository(Status::class)->findOneBy(['nom'=>'En attente']);
+            if ($status) {
+                $devisStatus = new DevisStatus();
+                $devisStatus->setStatus($status);
+                $devisStatus->setDevis($devis);
+                $devisStatus->setDateStatus(new \DateTimeImmutable());
+
+                $entityManager->persist($devisStatus);
+                $entityManager->flush();
+            }
 
             $this->addflash("success", "Votre devis est bien enregister");
             return $this->redirectToRoute('app_home');
