@@ -23,7 +23,7 @@ class RegistrationTypeForm extends AbstractType
             ->add('prenom', TextType::class)
             ->add('nom', TextType::class)
             ->add('telephone', TelType::class,[
-                'label' => 'Téléphone'])
+                'label' => 'Téléphone (facultatif)'])
             ->add('email', EmailType::class)
             ->add('agreeTerms', CheckboxType::class, [
                 'label' => 'J’accepte la collecte et le traitement de mes données personnelles conformément à la politique de confidentialité. ',

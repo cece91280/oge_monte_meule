@@ -1,0 +1,267 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Services{% endblock %}
+
+{% block body %}
+    <main>
+        <section class="hero">
+            <img src="{{ asset('img/Service.png') }}" alt="Services">
+            <div class="hero-content">
+                <h2>Nos Services de Déménagements.</h2>
+                <p>Des solutions complètes et personnalisées pour tout vos besoins de déménagement, qu'il s'agisse d'un
+                    particulier ou d'un entreprise.</p>
+            </div>
+        </section>
+
+        <section class="service">
+            <h2>Nos Services Principaux</h2>
+            <p>Une gamme complète de services pour vous accompagner dans toute les étapes de votre déménagement.</p>
+            <div class="service-item">
+                <div class="icon-circle">
+                    <svg width="24" height="24">
+                        <use href="{{ asset('img/sprite.svg') }}#home"></use>
+                    </svg>
+                </div>
+                <h3>Déménagement résidentiel</h3>
+                <p>Prise en charge complète de votre déménagement résidentiel, studio à la grande maison familiale, avec
+                    soin et éfficacité.</p>
+            </div>
+            <div class="service-item">
+                <div class="icon-circle">
+                    <svg xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <use xlink:href="{{ asset('img/sprite.svg') }}#building"></use>
+                    </svg>
+                </div>
+                <h3>Déménagement D'entreprise</h3>
+                <p>Organisation proffesionnelle de votre déménagement d’entreprise pour minimiser l’impact sur votre
+                    activité.</p>
+            </div>
+            <div class="service-item">
+                <div class="icon-circle">
+                    <svg viewBox="0 0 24 24" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <use xlink:href="{{ asset('img/sprite.svg') }}#ring"></use>
+                    </svg>
+                </div>
+                <h3>Emballage et protection</h3>
+                <p>Service complet d'emballage et de protection de vos biens avec des matériaux de qualité pour assurer
+                    leur sécurité pendant le transport.</p>
+            </div>
+            <div class="service-item">
+                <div class="icon-circle">
+                    <svg viewBox="0 0 24 24" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <use xlink:href="{{ asset('img/sprite.svg') }}#monte"></use>
+                    </svg>
+                </div>
+                <h3>Transport Sécurisé</h3>
+                <p>Flotte de véhicules adaptés et équipés pour le transport sécurisé de tout type de bien et
+                    volumes.</p>
+            </div>
+            <div class="service-item">
+                <div class="icon-circle">
+                    <svg viewBox="0 0 24 24" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <use xlink:href="{{ asset('img/sprite.svg') }}#truck"></use>
+                    </svg>
+                </div>
+                <h3>Emballage et protection</h3>
+                <p>Service complet d'emballage et de protection de vos biens avec des matériaux de qualité pour assurer
+                    leur sécurité pendant le transport.</p>
+            </div>
+            <div class="service-item">
+                <div class="icon-circle">
+                    <svg viewBox="0 0 24 24" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <use xlink:href="{{ asset('img/sprite.svg') }}#shield"></use>
+                    </svg>
+                </div>
+                <h3>Service Fiable et Sécurisé</h3>
+                <p>Vos biens protégés par un service certifié et de confiance.</p>
+            </div>
+            <div class="service-item">
+                <div class="icon-circle">
+                    <svg viewBox="0 0 24 24" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <use xlink:href="{{ asset('img/sprite.svg') }}#clock"></use>
+                    </svg>
+                </div>
+                <h3>Déménagement Express</h3>
+                <p>Service rapide et ponctuel pour respecter vos délais sans stress.</p>
+            </div>
+        </section>
+
+        <section class="choix">
+            <div class="choix-service">
+                <div class="choix-header">
+                    <div class="icon-carre">
+                        <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <use xlink:href="{{ asset('img/sprite.svg') }}#home"></use>
+                        </svg>
+                    </div>
+                    <h2>Déménagement Résidentiel</h2>
+                </div>
+                <p class="intro">Notre équipe expérimentée prend en charge votre déménagement résidentiel de A à Z, en
+                    s'adaptant à
+                    vos besoins spécifiques et à votre budget.</p>
+                <div class="check-item">
+                    <div class="icon-circle">
+                        <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <use xlink:href="{{ asset('img/sprite.svg') }}#check"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Évaluation gratuite</h3>
+                        <p>Visite à domicile pour établir un devis personnalisé.</p>
+                    </div>
+                </div>
+                <div class="check-item">
+                    <div class="icon-circle">
+                        <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <use xlink:href="{{ asset('img/sprite.svg') }}#check"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Emballage professionnel</h3>
+                        <p>Protection optimale de vos biens fragiles.</p>
+                    </div>
+                </div>
+                <div class="check-item">
+                    <div class="icon-circle">
+                        <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <use xlink:href="{{ asset('img/sprite.svg') }}#check"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Transport sécurisé</h3>
+                        <p>Véhicules équipés et conduite porfessionnelle.</p>
+                    </div>
+                </div>
+                <div class="check-item">
+                    <div class="icon-circle">
+                        <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <use xlink:href="{{ asset('img/sprite.svg') }}#check"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Remontage inclus</h3>
+                        <p>Remise en place de vos meubles dans votre nouveau logement.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="choix-service">
+                <div class="choix-header">
+                    <div class="icon-carre">
+                        <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <use xlink:href="{{ asset('img/sprite.svg') }}#building"></use>
+                        </svg>
+                    </div>
+                    <h2>Déménagement D'entreprise</h2>
+                </div>
+                <p class="intro">Déménagement professionnel avec planification minutieuse pour assurer la continuité de votre activité et minimiser les interruptions.</p>
+                <div class="check-item">
+                    <div class="icon-circle">
+                        <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <use xlink:href="{{ asset('img/sprite.svg') }}#check"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Planification sur mesure</h3>
+                        <p>Organisation adaptée à vos contraintes d'activité.</p>
+                    </div>
+                </div>
+                <div class="check-item">
+                    <div class="icon-circle">
+                        <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <use xlink:href="{{ asset('img/sprite.svg') }}#check"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Déménagement hors horaire</h3>
+                        <p>Interventions en soirée ou week-end si nécessaire.</p>
+                    </div>
+                </div>
+                <div class="check-item">
+                    <div class="icon-circle">
+                        <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <use xlink:href="{{ asset('img/sprite.svg') }}#check"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Matériel informatique</h3>
+                        <p>Manipulation spécialisée des équipements sensibles.</p>
+                    </div>
+                </div>
+                <div class="check-item">
+                    <div class="icon-circle">
+                        <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <use xlink:href="{{ asset('img/sprite.svg') }}#check"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Remise en service</h3>
+                        <p>Aide à la réinstallation dans vos nouveaux locaux.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="choix-service">
+                <div class="choix-header">
+                    <div class="icon-carre">
+                        <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <use xlink:href="{{ asset('img/sprite.svg') }}#ring"></use>
+                        </svg>
+                    </div>
+                    <h2>Emballage et Protection</h2>
+                </div>
+                <p class="intro">Service d'emballage professionnel utilisant des matériaux de qualité supérieure pour garantir la protection optimale de vos biens les plus précieux.</p>
+                <div class="check-item">
+                    <div class="icon-circle">
+                        <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <use xlink:href="{{ asset('img/sprite.svg') }}#check"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Matériaux prenium</h3>
+                        <p>Cartons renforcés, papier bulle, film plastique.</p>
+                    </div>
+                </div>
+                <div class="check-item">
+                    <div class="icon-circle">
+                        <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <use xlink:href="{{ asset('img/sprite.svg') }}#check"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Objets fragiles</h3>
+                        <p>Emballage spécialisé pour œuvres d'art, électronique.</p>
+                    </div>
+                </div>
+                <div class="check-item">
+                    <div class="icon-circle">
+                        <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <use xlink:href="{{ asset('img/sprite.svg') }}#check"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Étiquetage</h3>
+                        <p>Système de marquage pour faciliter le déballage.</p>
+                    </div>
+                </div>
+                <div class="check-item">
+                    <div class="icon-circle">
+                        <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <use xlink:href="{{ asset('img/sprite.svg') }}#check"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Déballage inclus</h3>
+                        <p>Service de déballage et évacuation des emballages.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="devis">
+            <h2>Prêt à planifier votre déménagement ?</h2>
+            <p>Contactez-nous dès aujourd'hui pour obtenir un devis gratuit et personnalisé pour votre prochain déménagement.</p>
+            <div class="devis-buttons">
+                <a href="{{ path('app_devis_nouveau') }}" class="btn">Demander un Devis</a>
+                <a href="{{ path('app_contact') }}" class="btn">Nous contacter</a>
+            </div>
+        </section>
+    </main>
+{% endblock %}

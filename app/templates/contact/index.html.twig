@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+    <div class="contact-form-wrapper">
+        <h2>Nous Contacter</h2>
+        <p>Remplissez le formulaire ci-dessous</p>
+        {{ form_start(form) }}
+        <div>
+            <div>{{ form_row(form.nom) }}</div>
+            <div>{{ form_row(form.prenom) }}</div>
+        </div>
+        {{ form_row(form.email) }}
+        {{ form_row(form.categorie) }}
+        {{ form_row(form.message) }}
+        {{ form_row(form.rgpd) }}
+        <button type="submit" class="btn btn-primary">Envoyer</button>
+        {{ form_end(form) }}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success" style="margin-top: 1em;">{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endblock %}

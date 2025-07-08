@@ -7,6 +7,7 @@ use App\Entity\Devis;
 use App\Entity\TypeBiens;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,20 +18,38 @@ class AdressesTypeForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('adresse_nom', TextType::class, ['label' => 'Nom de la rue'])
-            ->add('ville', TextType::class, ['label' => 'Ville'])
-            ->add('code_postal', TextType::class, ['label' => 'Code postal'])
-            ->add('etage', IntegerType::class, ['label' => 'Etage (0 si RDC)',
+            ->add('adresse_nom', TextType::class, [
+                'label' => false,
+                'attr' => ['placeholder' => 'Numéro et Nom de rue',]
+            ])
+            ->add('ville', TextType::class, [
+                'label' => false,
+                'attr' => ['placeholder' => 'Ville',]
+            ])
+            ->add('code_postal', TextType::class, [
+                'label' => false,
+                'attr' => ['placeholder' => 'Code postal',]
+                ])
+            ->add('etage', IntegerType::class, [
+                'label' => 'Étage',
+                'attr' => ['placeholder' => 'Étage 0 si RDC',],
                 'required' => false,
                 'empty_data' => 0])
-            ->add('ascenseur', null, [
-                'label' => 'Présence d\'ascenseur',
-                'required' => false,])
+            ->add('ascenseur', ChoiceType::class, [
+                'label' => 'ascenseur',
+                'choices' => [
+                    'oui' => true,
+                    'non' => false,
+                ],
+                'expanded' => true,
+                'multiple' => false,
+                'required' => false,
+                'placeholder' => false,])
             ->add('typeBiens', EntityType::class, [
                 'class' => TypeBiens::class,
                 'choice_label' => 'nom',
                 'label' => 'Type de bien',
-                'placeholder' => 'Choisissez un type de bien',
+                'placeholder' => 'Sélectionnez',
                 'required' => true,
             ]);
     }

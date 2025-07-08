@@ -35,6 +35,9 @@ security:
                 login_path: app_login
                 check_path: app_login
                 enable_csrf: true
+                username_parameter: email
+                password_parameter: password
+                default_target_path: app_home
                 # by default, the feature is enabled by checking a checkbox in the
                 # login form, uncomment the following line to always enable it.
                 #always_remember_me: true
@@ -49,7 +52,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
     security:

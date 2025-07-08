@@ -13,16 +13,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class DevisController extends AbstractController
 {
     #[Route('/devis/nouveau', name: 'app_devis_nouveau')]
-    public function nouveau(Request $request, EntityManagerInterface $entityManager): Response
+    public function nouveau(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
         $devis = new Devis();
 
         $form =$this->createForm(DevisTypeForm::class,$devis);
+        $user = $this->getUser();
+
+        if(!$user){
+            throw $this->createAccessDeniedException('Vous devez être connecté pour crée un devis');
+        }
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $devis->setUsers($this->getUser());
@@ -49,6 +57,33 @@ final class DevisController extends AbstractController
             $entityManager->persist($devis);
             $entityManager->flush();
 
+            $try = 0;
+            do{
+                $numero = '';
+                for($i=0;$i<10;$i++){
+                    $numero .= random_int(0, 9);
+                }
+                $existing = $entityManager->getRepository(Devis::class)->findOneBy(['numero' => $numero]);
+                $try++;
+                if($try > 50){
+
+                    throw new \Exception('impossible de générer un numéro de devis unique aprés 50 essaie !');
+                }
+            }while($existing !== null);
+            $devis->setNumero($numero);
+            $entityManager->flush();
+
+            // Envoie du mail
+            $email = (new Email())
+                ->from('contact@ogemonte-meuble.fr')
+                ->to($user->getEmail())
+                ->subject('Votre devis OgeMonteMeuble')
+                ->html($this->renderView('emails/devis_client.html.twig', [
+                    'devis' => $devis,
+                    'user' => $user,
+                ]));
+            $mailer->send($email);
+
             $status =$entityManager->getRepository(Status::class)->findOneBy(['nom'=>'En attente']);
             if ($status) {
                 $devisStatus = new DevisStatus();
@@ -60,11 +95,12 @@ final class DevisController extends AbstractController
                 $entityManager->flush();
             }
 
-            $this->addflash("success", "Votre devis est bien enregister");
+            $this->addflash("success", "Votre devis a est bien été enregister");
             return $this->redirectToRoute('app_home');
         }
         return $this->render('devis/nouveau.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form,
+            'devis' => $devis,
         ]);
     }
     #[Route('/api/reserved-days', name: 'api_reserved_days')]

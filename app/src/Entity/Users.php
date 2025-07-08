@@ -56,12 +56,17 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Devis::class, mappedBy: 'users')]
     private Collection $devis;
 
-    #[ORM\Column]
-    private bool $isVerified = false;
+
+    /**
+     * @var Collection<int, Avis>
+     */
+    #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'users')]
+    private Collection $avis;
 
     public function __construct()
     {
         $this->devis = new ArrayCollection();
+        $this->avis = new ArrayCollection();
     }
 
 
@@ -229,14 +234,33 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isVerified(): bool
+
+    /**
+     * @return Collection<int, Avis>
+     */
+    public function getAvis(): Collection
     {
-        return $this->isVerified;
+        return $this->avis;
     }
 
-    public function setIsVerified(bool $isVerified): static
+    public function addAvi(Avis $avi): static
     {
-        $this->isVerified = $isVerified;
+        if (!$this->avis->contains($avi)) {
+            $this->avis->add($avi);
+            $avi->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvi(Avis $avi): static
+    {
+        if ($this->avis->removeElement($avi)) {
+            // set the owning side to null (unless already changed)
+            if ($avi->getUsers() === $this) {
+                $avi->setUsers(null);
+            }
+        }
 
         return $this;
     }

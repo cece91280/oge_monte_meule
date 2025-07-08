@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Bonjour {{ user.prenom }},</h2>
+    <p>Merci pour votre demande de devis sur OgeMonteMeuble. Voici un récapitulatif :</p>
+    <ul>
+        <li>Date du déménagement: {{ devis.dateDemenagement|date('d/m/Y') }}</li>
+        <li>
+            Adresse de départ:
+            {% if devis.adressesDepart is not null and devis.adressesDepart.ville is not null %}
+                {{ devis.adressesDepart.ville }}
+            {% else %}
+                (Non renseignée)
+            {% endif %}
+        </li>
+        <li>
+            Adresse d'arrivée:
+            {% if devis.adressesArriver is not null and devis.adressesArriver.ville is not null %}
+                {{ devis.adressesArriver.ville }}
+            {% else %}
+                (Non renseignée)
+            {% endif %}
+        </li>
+        <li>Volume: {{ devis.volume }} m³</li>
+        <li>Prix: {{ devis.prixEstime|number_format(2, ',', ' ') }} €</li>
+        <li>Numéro de devis : {{ devis.numero }}</li>
+    </ul>
+    <p>Nous restons à votre disposition pour toute question.</p>
+    <p>L’équipe OgeMonteMeuble</p>
+{% endblock %}

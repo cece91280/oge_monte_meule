@@ -1,17 +1,11 @@
 {% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+<script src="{{ asset('js/calendrier.js') }}" defer></script>
+{% endblock %}
+
 {% block body %}
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="alert alert-{{ label }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
-
-
-
-
-
     <main>
         <section class="hero">
             <img src="{{ asset('img/Accueil.png') }}" alt="Accueil">
@@ -21,7 +15,7 @@
             </div>
             <div class="hero-buttons">
                 <a href="{{ path('app_devis_nouveau') }}" class="btn">Demande un devis gratuit</a>
-                <a href="#" class="btn">Découvrir nos services</a>
+                <a href="{{ path('app_services') }}" class="btn">Découvrir nos services</a>
             </div>
         </section>
 
@@ -80,16 +74,7 @@
                     <td class="calendar-day">22</td>
                     <td class="calendar-day">23</td>
                 </tr>
-                <tr>
-                    <td class="calendar-day">24</td>
-                    <td class="calendar-day">25</td>
-                    <td class="calendar-day">26</td>
-                    <td class="calendar-day">27</td>
-                    <td class="calendar-day">28</td>
-                    <td class="calendar-day">29</td>
-                    <td class="calendar-day">30</td>
-                </tr>
-                </tbody>
+
             </table>
         </section>
 
@@ -104,7 +89,7 @@
             </div>
                 <h3>Déménagement résidentiel</h3>
                 <p>Notre équipe prend en charge votre déménagement résidentiel avec soin et efficacité, du petit studio à la grande maison familiale.</p>
-                <a href="#" class="btn">En savoir plus</a>
+                <a href="{{ path('app_services') }}" class="btn">En savoir plus</a>
             </div>
             <div class="service-item">
                 <div class="icon-circle">
@@ -114,7 +99,7 @@
             </div>
                 <h3>Déménagement d'entreprise</h3>
                 <p>Nous organisons votre déménagement professionnel pour minimiser l'impact sur votre activité avec une planification minutieuse.</p>
-                <a href="#" class="btn">En savoir plus</a>
+                <a href="{{ path('app_services') }}" class="btn">En savoir plus</a>
             </div>
             <div class="service-item">
                 <div class="icon-circle">
@@ -124,7 +109,7 @@
                 </div>
                 <h3>Emballage et protection</h3>
                 <p>Service complet d'emballage et de protection de vos biens avec des matériaux de qualité pour assurer leur sécurité pendant le transport.</p>
-                <a href="#" class="btn">En savoir plus</a>
+                <a href="{{ path('app_services') }}" class="btn">En savoir plus</a>
             </div>
         </section>
 
@@ -172,15 +157,35 @@
         <section class="clients">
             <h2>Ce que disent nos clients</h2>
             <p>Découvrez les témoignages de nos clients satisfaits par notre service de déménagement.</p>
-            <div class="client-item">
-                <div class="stars">★★★★★</div>
-                <p>Service impeccable ! L'équipe a été très professionnelle et attentionnée avec nos meubles. Rien n'a été endommagé et ils ont respecté les délais. Je recommande vivement.</p>
-                <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <use xlink:href="{{ asset('img/sprite.svg') }}#person"></use>
-                </svg>
-                <h3>Sophie Durand</h3>
-                <p>Déménagement Paris -> Corbeil-Essonne</p>
-            </div>
+            {% for avis in avis %}
+                <div class="client-item">
+                    <div class="stars">
+                        {% for i in 1..5 %}
+                            {% if i <= avis.note %}
+                                ★
+                            {% else %}
+                                ☆
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <p>{{ avis.commentaire }}</p>
+                    <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <use xlink:href="{{ asset('img/sprite.svg') }}#person"></use>
+                    </svg>
+                    <h3>
+                        {{ avis.users.prenom ?? 'Utilisateur inconnu' }}
+                    </h3>
+                    <p>
+                        {% if avis.devis and avis.devis.adressesDepart and avis.devis.adressesArriver %}
+                            {{ avis.devis.adressesDepart.ville }} ⭢ {{ avis.devis.adressesArriver.ville }}
+                        {% else %}
+                            (Lieu non renseigné)
+                        {% endif %}
+                    </p>
+                </div>
+            {% else %}
+                <p>Aucun avis client pour le moment.</p>
+            {% endfor %}
         </section>
 
         <section class="devis">
@@ -188,7 +193,7 @@
             <p>Contactez-nous dès aujourd'hui pour obtenir un devis gratuit et personnalisé pour votre prochain déménagement.</p>
             <div class="devis-buttons">
                 <a href="{{ path('app_devis_nouveau') }}" class="btn">Demander un Devis</a>
-                <a href="#" class="btn">Nous contacter</a>
+                <a href="{{ path('app_contact') }}" class="btn">Nous contacter</a>
             </div>
         </section>
     </main>

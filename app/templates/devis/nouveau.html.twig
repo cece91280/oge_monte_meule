@@ -1,74 +1,107 @@
 {% extends 'base.html.twig' %}
-
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/calendrier.js') }}" defer></script>
+{% endblock %}
 {% block title %}Créer un devis{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
-        <h1 class="mb-4">Demande de devis</h1>
-
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success">{{ message }}</div>
-        {% endfor %}
-
-        {{ form_start(form) }}
-
-        <h4>Informations générales</h4>
-        <div class="mb-3">
-            {{ form_row(form.volume) }}
+    <section class="hero">
+        <img src="{{ asset('img/Devis.png') }}" alt="Services">
+        <div class="hero-content">
+            <h1>Demandez votre devis gratuit.</h1>
+            <p>Remplissez le formulaire ci-dessous pour obtenir une estimation personnalisée de votre déménagement. Notre équipe vous repondra dans les plus bref délai.</p>
         </div>
-        <div class="mb-3">
-            {{ form_row(form.dateDemenagement) }}
+    </section>
+<div class="form-container">
+    {{ form_start(form) }}
+
+    {# Informations personnelles #}
+    {% if app.user %}
+        <h3>Informations personnelles</h3>
+        <div class="form-inline">
+            <div class="form-group">
+                <label>Nom :</label>
+                <input type="text" value="{{ app.user.nom }}" readonly>
+            </div>
+            <div class="form-group">
+                <label>Prénom :</label>
+                <input type="text" value="{{ app.user.prenom }}" readonly>
+            </div>
         </div>
-
-        <hr>
-        <h4>Adresse de départ</h4>
-        <div class="mb-3">
-            {{ form_row(form.adressesDepart.adresse_nom) }}
-            {{ form_row(form.adressesDepart.ville) }}
-            {{ form_row(form.adressesDepart.code_postal) }}
-            {{ form_row(form.adressesDepart.etage) }}
-            {{ form_row(form.adressesDepart.ascenseur) }}
-            {{ form_row(form.adressesDepart.typeBiens) }}
+        <div class="form-group">
+            <label>Email :</label>
+            <input type="email" value="{{ app.user.email }}" readonly>
         </div>
-
-        <hr>
-        <h4>Adresse d’arrivée</h4>
-        <div class="mb-3">
-            {{ form_row(form.adressesArriver.adresse_nom) }}
-            {{ form_row(form.adressesArriver.ville) }}
-            {{ form_row(form.adressesArriver.code_postal) }}
-            {{ form_row(form.adressesArriver.etage) }}
-            {{ form_row(form.adressesArriver.ascenseur) }}
-            {{ form_row(form.adressesArriver.typeBiens) }}
+        <div class="form-group">
+            <label>Téléphone :</label>
+            <input type="text" value="{{ app.user.telephone }}" readonly>
         </div>
+    {% endif %}
 
-        <hr>
-        <h4>Prestations souhaitées</h4>
+    {# Informations générales #}
+    <h3>Informations générales</h3>
+    {{ form_row(form.volume) }}
+    {{ form_row(form.dateDemenagement) }}
 
-        <div class="mb-3">
-            {{ form_row(form.prestations) }} {# ✅ CASES À COCHER #}
-        </div>
-
-        <div data-controller="collection" data-collection-allow-add-value="true">
-            {% for prestationForm in form.devisPrestations %}
-                <div class="border p-3 rounded mb-3">
-                    {{ form_row(prestationForm.prestation) }}
-                    {{ form_row(prestationForm.dateDebut) }}
-                    {{ form_row(prestationForm.dateFin) }}
-                </div>
+    {# Adresse de départ #}
+    <h3>Adresse de départ</h3>
+    {{ form_row(form.adressesDepart.adresse_nom) }}
+    <div class="form-inline">
+        {{ form_row(form.adressesDepart.code_postal) }}
+        {{ form_row(form.adressesDepart.ville) }}
+    </div>
+    {{ form_row(form.adressesDepart.etage) }}
+    <div class="radio-group">
+        <label>Ascenseur</label>
+        <div class="radio-options">
+            {% for child in form.adressesDepart.ascenseur %}
+                <label class="radio-option">
+                    {{ form_widget(child) }} {{ form_label(child) }}
+                </label>
             {% endfor %}
         </div>
-
-        <hr>
-        <h4>Commentaires</h4>
-        <div class="mb-3">
-            {{ form_row(form.commentaire) }}
-        </div>
-
-        <div class="mt-4">
-            <button type="submit" class="btn btn-primary">Envoyer le devis</button>
-        </div>
-
-        {{ form_end(form) }}
     </div>
-{% endblock %}
+    {{ form_row(form.adressesDepart.typeBiens) }}
+
+    {# Adresse d’arrivée #}
+    <h3>Adresse d’arrivée</h3>
+    {{ form_row(form.adressesArriver.adresse_nom) }}
+    <div class="form-inline">
+        {{ form_row(form.adressesArriver.code_postal) }}
+        {{ form_row(form.adressesArriver.ville) }}
+    </div>
+    {{ form_row(form.adressesArriver.etage) }}
+    <div class="radio-group">
+        <label>Ascenseur</label>
+        <div class="radio-options">
+            {% for child in form.adressesArriver.ascenseur %}
+                <label class="radio-option">
+                    {{ form_widget(child) }} {{ form_label(child) }}
+                </label>
+            {% endfor %}
+        </div>
+    </div>
+    {{ form_row(form.adressesArriver.typeBiens) }}
+
+    {# Prestations (checkboxes) #}
+    <h3>Services supplémentaires souhaités</h3>
+    <div class="checkbox-group">
+        {% for prestation in form.prestations %}
+            <label class="checkbox-item">
+                {{ form_widget(prestation) }}
+                {{ form_label(prestation) }}
+            </label>
+        {% endfor %}
+    </div>
+
+    {# Commentaire #}
+    <h3>Commentaires ou précisions supplémentaires</h3>
+    {{ form_row(form.commentaire) }}
+
+    {# Envoi #}
+    <button type="submit" class="btn-primary">Envoyer le devis</button>
+
+    {{ form_end(form) }}
+</div>
+{%  endblock %}

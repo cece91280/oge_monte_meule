@@ -10,10 +10,13 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use function Sodium\add;
 
 
 class DevisTypeForm extends AbstractType
@@ -21,9 +24,12 @@ class DevisTypeForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+
             ->add('volume', NumberType::class, [
                 'required' => false,
                 'label' => 'Volume approximatif (m²)',
+                'attr' => ['placeholder' => 'Ex: 20m²',]
+
             ])
             ->add('dateDemenagement', DateTimeType::class, [
                 'widget' => 'single_text',
@@ -34,17 +40,7 @@ class DevisTypeForm extends AbstractType
             ->add('adressesDepart', AdressesTypeForm::class, [
                 'label' => false,
             ])
-            ->add('devisPrestations', CollectionType::class, [
-                'entry_type' => DevisPrestationsTypeForm::class,
-                'entry_options' => ['label' => false],
-                'allow_add' => true,
-                'by_reference' => false,
-                'label' => 'Services supplémentaires souhaités'
-            ])
-            ->add('users', EntityType::class, [
-                'class' => Users::class,
-                'choice_label' => 'nom'
-            ])
+
             ->add('commentaire', TextareaType::class, [
                 'required' => false,
                 'label' => 'Commentaires ou précisions supplémentaires',

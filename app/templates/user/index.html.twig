@@ -6,17 +6,17 @@
     <section>
         <h2>Mes informations</h2>
         <ul>
-            <li><strong>Nom</strong>{{ users.nom }}</li>
-            <li><strong>Prénom</strong>{{ users.prenom }}</li>
-            <li><strong>Email</strong>{{ users.email }}</li>
-            <li><strong>Téléphone</strong>{{ users.telephone }}</li>
+            <li><strong>Nom</strong> {{ users.nom }}</li>
+            <li><strong>Prénom</strong> {{ users.prenom }}</li>
+            <li><strong>Email</strong> {{ users.email }}</li>
+            <li><strong>Téléphone</strong> {{ users.telephone }}</li>
         </ul>
     </section>
     <section>
         <h2>Mes devis</h2>
 
         {% if devis is empty %}
-        <p>Vous n'avez as encore de devis</p>
+        <p>Vous n'avez pas encore de devis</p>
         {% else %}
         <table>
             <thead>
@@ -34,6 +34,24 @@
                     <td>{{ d.devis.volume }} m²</td>
                     <td>{{ d.statut }}</td>
                     <td>{{ d.devis.prixEstime }} €</td>
+                    <td>
+                        {% if d.avis is not empty %}
+                            {% for avis in d.avis %}
+                                {% if avis.users == app.user %}
+                                    <strong>{{ avis.note }}/5</strong><br>
+                                    <em>{{ avis.commentaire }}</em>
+                                {% endif %}
+                            {% endfor %}
+                        {% elseif d.avisForm is defined and d.avisForm is not null %}
+                            {{ form_start(d.avisForm) }}
+                            {{ form_row(d.avisForm.note) }}
+                            {{ form_row(d.avisForm.commentaire) }}
+                            <button class="btn btn-primary btn-sm">Envoyer</button>
+                            {{ form_end(d.avisForm) }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

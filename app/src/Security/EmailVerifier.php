@@ -33,6 +33,9 @@ class EmailVerifier
         $context['expiresAtMessageKey'] = $signatureComponents->getExpirationMessageKey();
         $context['expiresAtMessageData'] = $signatureComponents->getExpirationMessageData();
 
+        $context['prenom'] = $user->getPrenom();
+        $context['nom'] = $user->getNom();
+
         $email->context($context);
 
         $this->mailer->send($email);

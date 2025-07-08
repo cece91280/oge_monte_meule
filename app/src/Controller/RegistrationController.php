@@ -9,12 +9,14 @@ use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\MakerBundle\Security\Model\Authenticator;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
@@ -47,7 +49,7 @@ class RegistrationController extends AbstractController
                 (new TemplatedEmail())
                     ->from(new Address('admin@ogemontemeuble.fr', 'OgeMonteMeuble'))
                     ->to((string) $user->getEmail())
-                    ->subject('Please Confirm your Email')
+                    ->subject('Veuillez confirmer votre compte')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
 
@@ -67,12 +69,14 @@ class RegistrationController extends AbstractController
         $id = $request->query->get('id');
 
         if (null === $id) {
+            $this->addFlash('verify_email_error', 'mauvaise identifiant');
             return $this->redirectToRoute('app_register');
         }
 
         $user = $usersRepository->find($id);
 
         if (null === $user) {
+            $this->addFlash('verify_email_error', 'mauvais users');
             return $this->redirectToRoute('app_register');
         }
 

@@ -110,8 +110,47 @@ body {
     color: var(--black);
     text-decoration: none;
 }
+/* ======= MENU PROFIL ======== */
 
-/* ======= HERO SECTION ======= */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #333;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--blue-secondary);
+    padding: 8px;
+    z-index: 1000;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 6px 12px;
+    color: #333;
+    text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f0f0f0;
+}
+
+.dropdown.active .dropdown-menu {
+    display: block;
+}
+
+/* === HERO SECTION ==== */
+
 .hero {
     position: relative;
     text-align: left;
@@ -119,65 +158,63 @@ body {
 
 .hero img {
     width: 100%;
-    height: auto;
     display: block;
 }
 
 .hero-content {
     position: absolute;
-    top: 20%;
+    top: 18%;
     left: 5%;
+    right: 5%;
     color: var(--text-dark);
-    max-width: 90%;
 }
 
 .hero-content h2 {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: bold;
+    margin-bottom: 1rem;
 }
 
 .hero-content p {
     font-size: 1rem;
-    margin-top: 0.5rem;
+    line-height: 1.4;
 }
 
-/* ======= HERO BUTTONS ======= */
+/* === HERO BUTTONS ======= */
+
 .hero-buttons {
     position: absolute;
     bottom: 10%;
-    left: 0;
-    right: 0;
+    left: 5%;
+    right: 5%;
     display: flex;
     justify-content: space-between;
-    padding: 0 33px;
-    gap: 5rem;
+    gap: 1rem;
 }
 
 .hero-buttons .btn {
     flex: 1;
     text-align: center;
-    padding: 1.5rem 1.5rem;
+    padding: 0.8rem 1rem;
     font-weight: bold;
-    text-decoration: none;
+    font-size: 1rem;
     border-radius: var(--radius);
-    display: inline-block;
+    text-decoration: none;
     transition: all 0.3s ease;
 }
 
 .hero-buttons .btn:first-child {
     background-color: var(--blue-primary);
     color: var(--white);
-    font-size: 1.5rem;
 }
 
 .hero-buttons .btn:last-child {
     background-color: var(--white);
     color: var(--black);
     border: 1px solid var(--black);
-    font-size: 1.5rem
 }
+/* === CALENDAR SECTION ===== */
 
-/* ======= CALENDAR SECTION ======= */
 .calendrier {
     margin: 2rem auto;
     max-width: 95%;
@@ -195,24 +232,25 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 0.8rem 1rem;
-    border-top-left-radius: var(--radius);
-    border-top-right-radius: var(--radius);
+    border-radius: var(--radius) var(--radius) 0 0;
 }
 
 .calendar-header button {
-    background: var(--grey-light);
-    border-radius: 5px;
-    height: 30px;
-    width:30px;
-    color: var(--black);
+    background: var(--white);
+    border-radius: 6px;
+    height: 32px;
+    width: 32px;
+    color: var(--blue-primary);
     font-size: 1.2rem;
     border: none;
     cursor: pointer;
+    font-weight: bold;
 }
 
 .calendar-header h3 {
     margin: 0;
     font-size: 1.1rem;
+    font-weight: bold;
 }
 
 #calendarTable {
@@ -227,32 +265,25 @@ body {
     text-align: center;
     padding: 0.6rem;
     font-size: 0.9rem;
+    height: 50px;
 }
 
 #calendarTable th {
     background-color: var(--grey-light);
+    font-weight: bold;
 }
 
+/* Jours disponibles */
 .calendar-day {
     background-color: var(--dispo);
-    color: var(--num-dispo)
+    color: var(--num-dispo);
 }
 
+/* Jours réservés */
 .calendar-day.reserved {
     background-color: var(--no-dispo);
     color: var(--num-no-dispo);
 }
-
-#calendarTable td:last-child {
-    background-color: var(--white);
-    color: black;
-
-}
-
-#calendarTable td {
-    height: 50px;
-}
-
 /* services */
 .service {
     padding: 2rem 58px;
@@ -620,18 +651,278 @@ footer .copyright {
     color: #ccc;
     text-align: center;
 }
+/* ======= CHOIX SERVICE (page Services) ======= */
+/* En-tête : icône + titre */
+.choix-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+/* SECTION CONTENEUR GÉNÉRAL */
+.choix {
+    background-color: var(--blue-secondary); /* fond bleu clair */
+    padding: 2rem 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+}
+
+/* BLOC INDIVIDUEL - CARTE SERVICE */
+.choix-service {
+    background-color: var(--white); /* fond blanc */
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px 16px;
+    max-width: 370px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* ICÔNE CARRÉ DE LA TÊTE DE CARTE */
+.choix-service .icon-carre {
+    width: 40px;
+    height: 40px;
+    background-color: var(--blue-secondary);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.icon-carre {
+    width: 32px;
+    height: 32px;
+    background-color: var(--blue-secondary);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.icon-carre svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+    margin: auto;
+    fill: var(--blue-primary);
+}
+
+/* TITRE PRINCIPAL */
+.choix-service h2 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    color: var(--black);
+}
+
+/* TEXTE INTRODUCTIF */
+.choix-service .intro {
+    font-size: 14px;
+    color: var(--text-dark);
+    line-height: 1.5;
+}
+
+/* ITEM DE CHECKLIST */
+.check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+/* CERCLE BLEU POUR L'ICÔNE */
+.check-item .icon-circle {
+    width: 20px;
+    height: 20px;
+    background-color: var(--blue-secondary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.check-item .icon-circle svg {
+    vertical-align: middle;
+    fill: var(--blue-primary);
+}
+
+/* TITRE D'ÉTAPE */
+.check-item h3 {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    color: var(--black);
+}
+
+/* DESCRIPTION D'ÉTAPE */
+.check-item p {
+    font-size: 13px;
+    margin: 0;
+    color: var(--text-dark);
+    line-height: 1.4;
+}
+/*==== Page Devis =====*/
+/* === Conteneur principal du formulaire === */
+.form-container {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 24px;
+    max-width: 450px;
+    margin: 2rem auto;
+    font-family: Arial, sans-serif;
+}
+
+/* === Titres de sections === */
+.form-container h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 2rem 0 1rem;
+}
+
+/* === Champs de formulaire généraux (inputs, selects, textarea) === */
+.form-container input,
+.form-container select,
+.form-container textarea {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+/* === Zone de texte (textarea) === */
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* === Champs sur la même ligne (ex : prénom + nom / ville + code postal) === */
+.form-inline {
+    display: flex;
+    gap: 12px;
+}
+
+.form-inline > * {
+    flex: 1;
+}
+
+/* === Champs utilisateurs en lecture seule (nom, prénom, etc.) === */
+.user-info input[readonly] {
+    background-color: #f4f4f4;
+    cursor: not-allowed;
+}
+
+/* === Bouton d'envoi du formulaire === */
+.btn-primary {
+    display: block;
+    width: 100%;
+    background-color: #1041b6;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    margin-top: 2rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #0c3698;
+}
+
+/* === Messages de succès / alertes === */
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    font-size: 14px;
+}
+
+/* === Groupe de prestations supplémentaires (cases à cocher) === */
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* === Style d'une ligne prestation (case + label) === */
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* === Case à cocher personnalisée === */
+.checkbox-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+}
+
+/* === Label de la case à cocher === */
+.checkbox-label {
+    margin: 0;
+    font-weight: normal;
+    display: inline-block;
+    line-height: 1.2;
+}
+/* === Structure propre du champ ascenseur === */
+.radio-group {
+    margin-bottom: 1rem;
+}
+
+.radio-group > label:first-child {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.radio-options {
+    display: flex;
+    gap: 20px;
+    margin-top: 6px;
+    align-items: center;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+}
+
+.radio-option input[type="radio"] {
+    margin: 0;
+    width: 16px;
+    height: 16px;
+}
 /* ======= RESPONSIVE ======= */
 @media (min-width: 768px) {
     .nav-container {
         display: flex;
         gap: 1.5rem;
+
     }
 
-    .burger {
+    .nav-container .burger {
         display: none;
     }
 
-    .nav {
+    .nav-container .nav {
         display: block;
     }
 
