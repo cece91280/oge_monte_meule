@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block body %}
+    {% include 'partials/_header.html.twig' %}
     <main>
         <section class="hero">
             <img src="{{ asset('img/Accueil.png') }}" alt="Accueil">
@@ -83,8 +84,8 @@
             <p>Des solutions adaptées à tous vos besoins de déménagement, qu'il s'agisse d'un petit appartement ou d'une grande maison.</p>
             <div class="service-item">
                 <div class="icon-circle">
-                <svg width="24" height="24" >
-                    <use href="{{ asset('img/sprite.svg') }}#home"></use>
+                <svg width="24" height="24" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <use xlink:href="{{ asset('img/sprite.svg') }}#home"></use>
                 </svg>
             </div>
                 <h3>Déménagement résidentiel</h3>
@@ -93,7 +94,7 @@
             </div>
             <div class="service-item">
                 <div class="icon-circle">
-                <svg  xmlns:xlink="http://www.w3.org/1999/xlink">
+                <svg width="24" height="24" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <use xlink:href="{{ asset('img/sprite.svg') }}#building"></use>
                 </svg>
             </div>
@@ -103,7 +104,7 @@
             </div>
             <div class="service-item">
                 <div class="icon-circle">
-                <svg viewBox="0 0 24 24" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <svg width="24" height="24" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <use xlink:href="{{ asset('img/sprite.svg') }}#ring"></use>
                 </svg>
                 </div>
@@ -197,5 +198,5 @@
             </div>
         </section>
     </main>
-
+{% include 'partials/_footer.html.twig' %}
 {% endblock %}

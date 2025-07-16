@@ -46,8 +46,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                     else if (reservedDates.includes(dateStr)) {
                         cell.classList.add("reserved");
+                        cell.title = "Date déjà réservée"
                     } else {
                         cell.classList.add("disponible");
+                    }
+                    if (cell.classList.contains("reserved")){
+                        // Désactive le clic, grise la case
+                        cell.style.pointerEvents = "none";
+                        cell.style.opacity = "0.6"
                     }
 
                     day++;

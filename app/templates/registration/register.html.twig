@@ -1,31 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}S'enregistrer{% endblock %}
 
 {% block body %}
+    {% include 'partials/_header.html.twig' %}
+
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    <h1>Inscription</h1>
+    <div class="register-page">
 
-    {{ form_errors(registrationForm) }}
+        <section class="register-info">
+            <h2 class="info-title">Rejoignez Notre Communauté</h2>
+            <p>Créez votre compte pour accéder à nos services de déménagement personnalisés et bénéficier d'un
+                accompagnement sur mesure.</p>
+            <ul class="info-list">
+                <li>Devis instantané en ligne</li>
+                <li>Suivi en temps réel de votre déménagement</li>
+                <li>Accès à votre espace client personnalisé</li>
+            </ul>
 
-    {{ form_start(registrationForm) }}
-    {{ form_row(registrationForm.nom) }}
-    {{ form_row(registrationForm.prenom) }}
-    {{ form_row(registrationForm.telephone) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Mot de passe'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
 
-        <button type="submit" class="btn">Créer Mon Compte</button>
+            <div class="register-card">
+                <h2 class="form-title">Créer un compte</h2>
+                <p class="form-subtitle">Remplissez le formulaire ci-dessous pour commencer</p>
 
-    {{ form_end(registrationForm) }}
-    <div class="login">
-    <p>Vous avez déjà un compte ?</p>
-    <a href="{{ path ('app_login') }}">Se connecter</a>
+                {{ form_errors(registrationForm) }}
+
+                {{ form_start(registrationForm, {'attr': {'class': 'register-form'}}) }}
+
+                <div class="form-row">
+                    {{ form_row(registrationForm.nom) }}
+                    {{ form_row(registrationForm.prenom) }}
+                </div>
+
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.telephone) }}
+                {{ form_row(registrationForm.plainPassword, {
+                    label: 'Mot de passe'
+                }) }}
+                <div class="form-agree">
+                    {{ form_widget(registrationForm.agreeTerms) }}
+                    {{ form_label(registrationForm.agreeTerms) }}
+                </div>
+                <button type="submit" class="btn-primary">Créer Mon Compte</button>
+                {{ form_end(registrationForm) }}
+
+                <div class="login-link">
+                    <p>Vous avez déjà un compte ? <a href="{{ path('app_login') }}">Se connecter</a></p>
+                </div>
+            </div>
+
+        </section>
     </div>
+    {% include 'partials/_footer.html.twig' %}
 {% endblock %}

@@ -1,9 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
+    <img src="{{ asset('img/logo.png') }}" alt="logo">
     <h2>Bonjour {{ user.prenom }},</h2>
     <p>Merci pour votre demande de devis sur OgeMonteMeuble. Voici un récapitulatif :</p>
-    <ul>
+    <ul style="list-style: none;">
         <li>Date du déménagement: {{ devis.dateDemenagement|date('d/m/Y') }}</li>
         <li>
             Adresse de départ:

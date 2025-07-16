@@ -3,6 +3,7 @@
 {% block title %}Services{% endblock %}
 
 {% block body %}
+    {% include 'partials/_header.html.twig' %}
     <main>
         <section class="hero">
             <img src="{{ asset('img/Service.png') }}" alt="Services">
@@ -264,4 +265,5 @@
             </div>
         </section>
     </main>
+    {% include 'partials/_footer.html.twig' %}
 {% endblock %}

@@ -3,22 +3,48 @@
 {% block title %}Contact{% endblock %}
 
 {% block body %}
-    <div class="contact-form-wrapper">
-        <h2>Nous Contacter</h2>
-        <p>Remplissez le formulaire ci-dessous</p>
-        {{ form_start(form) }}
-        <div>
-            <div>{{ form_row(form.nom) }}</div>
-            <div>{{ form_row(form.prenom) }}</div>
+    {% include 'partials/_header.html.twig' %}
+    <section class="hero">
+        <img src="{{ asset('img/Contact.png') }}" alt="Contact">
+        <div class="hero-content">
+            <h1>Notre équipe est à votre disposition pour toute question.</h1>
+            <p>N'hésitez pas à nous contacter pour toute demande d'information, de devis ou d'assistances. Que ce soit
+                par téléphone, par e-mail ou via notre formulaire en ligne, nous nous engageons à vous répondre dans les
+                plus bref délais. Votre satisfaction est notre priorité. </p>
         </div>
-        {{ form_row(form.email) }}
-        {{ form_row(form.categorie) }}
-        {{ form_row(form.message) }}
-        {{ form_row(form.rgpd) }}
-        <button type="submit" class="btn btn-primary">Envoyer</button>
-        {{ form_end(form) }}
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success" style="margin-top: 1em;">{{ message }}</div>
-        {% endfor %}
-    </div>
+    </section>
+    <section class="contact-form-wrapper">
+        <div class="contact-card">
+            <h2 class="form-title">Nous Contacter</h2>
+            <p class="form-subtitle">Remplissez le formulaire ci-dessous</p>
+
+            {{ form_start(form, {'attr': {'class': 'contact-form'}}) }}
+
+            <div class="form-row">
+                {{ form_row(form.nom) }}
+                {{ form_row(form.prenom) }}
+            </div>
+
+            {{ form_row(form.email) }}
+            {{ form_row(form.categorie) }}
+            {{ form_row(form.message) }}
+            <div class="form-agree">
+                {{ form_widget(form.rgpd) }}
+                <label for="{{ form.rgpd.vars.id }}">
+                    J’accepte les conditions générales d’utilisation et la politique de confidentialité*
+                </label>
+                {{ form_errors(form.rgpd) }}
+            </div>
+
+            <button type="submit" class="btn-primary">Envoyer</button>
+
+            {{ form_end(form) }}
+
+            {% for message in app.flashes('success') %}
+                <div class="alert-success">{{ message }}</div>
+            {% endfor %}
+        </div>
+    </section>
+
+    {% include 'partials/_footer.html.twig' %}
 {% endblock %}

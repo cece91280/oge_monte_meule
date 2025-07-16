@@ -32,7 +32,6 @@ final class AvisController extends AbstractController
             $avis->setUsers($user);
             $avis->setDevis($devis);
             $avis->setCreatedAt(new \DateTimeImmutable());
-            $avis->setIsApproved(false);
 
             $entityManager->persist($avis);
             $entityManager->flush();

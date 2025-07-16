@@ -27,6 +27,7 @@ final class UserController extends AbstractController
         $devisAvecStatut = [];
 
         foreach ($devisList as $devis) {
+            $avisUser = null;
             $statuses = $devis->getDevisStatus()->toArray();
             usort($statuses, fn($a,$b) => $b->getDateStatus() <=> $a->getDateStatus());
 
@@ -37,14 +38,13 @@ final class UserController extends AbstractController
             $avisForm = null;
 
             if ($statutNom === 'Terminé') {
-                $avisUsers = $avis->filter(fn($a) => $a->getUsers() === $users)->first();
+                $avisUser = $avis->filter(fn($a) => $a->getUsers() === $users)->first();
             }
-            if (!$avisUsers){
+            if (!$avisUser){
                 $nouvelAvis = new Avis();
                 $nouvelAvis->setUsers($users);
                 $nouvelAvis->setDevis($devis);
                 $nouvelAvis->setCreatedAt(new \DateTimeImmutable());
-                $nouvelAvis->setIsApproved(false);
 
                 $form = $formFactory->createNamed(
                     'avis_form_' . $devis->getId(),
@@ -66,6 +66,7 @@ final class UserController extends AbstractController
                 'devis' => $devis,
                 'statut' => $statutNom,
                 'avis' => $avis,
+                'avisUser' => $avisUser,
                 'avisForm' => $avisForm,
             ];
         }

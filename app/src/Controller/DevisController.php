@@ -34,6 +34,18 @@ final class DevisController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $devis->setUsers($this->getUser());
+            $dateChoisie = $devis->getDateDemenagement();
+            // ---- Vérification de la date ----
+            $dejaPris = $entityManager->getRepository(Devis::class)->findOneBy(['date_demenagement' => $dateChoisie]);
+            if ($dejaPris) {
+                $this->addFlash('error', 'Cette date est déjà réservée, merci d\'en choisir une autre.');
+                return $this->redirectToRoute('app_devis_nouveau');
+            }
+            if ($dateChoisie && $dateChoisie->format('w') == 0) {
+                $this->addFlash('error', 'Impossible de réserver un dimanche.');
+                return $this->redirectToRoute('app_devis_nouveau');
+            }
+            // ---- FIN vérification date ----
 
             $total = 0;
 

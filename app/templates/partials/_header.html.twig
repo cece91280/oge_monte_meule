@@ -1,0 +1,58 @@
+<header class="navbar">
+    {% block header %}
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="{{ path('app_home') }}"><img src="{{ asset('img/logo.png') }}" alt="logo"></a>
+            </div>
+            <nav class="nav" id="mainNav">
+                <a href="{{ path('app_home') }}" class="nav-link">Accueil</a>
+                <a href="#" class="nav-link">À propos</a>
+                <a href="{{ path('app_services') }}" class="nav-link">Service</a>
+                <a href="{{ path('app_devis_nouveau') }}" class="nav-link">Demande de Devis</a>
+                <a href="{{ path('app_contact') }}" class="nav-link">Contact</a>
+                {% if app.user %}
+                    <div class="nav-user">
+                        <span>Bienvenue, {{ app.user.prenom }}</span>
+                        <a href="{{ path('app_profil') }}">Profil</a>
+                        <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                    </div>
+                {% else %}
+                    <a href="{{ path('app_login') }}">Se connecter</a>
+                {% endif %}
+            </nav>
+            <div class="burger" id="burgerMenu">
+                <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <use xlink:href="{{ asset('img/sprite.svg') }}#burger"></use>
+                </svg>
+            </div>
+            <div class="modal" id="navModal">
+                <div class="modal-content">
+                    <div class="modal-nav">
+                        <a href="{{ path('app_home') }}"><img src="{{ asset('img/logo.png') }}" alt="logo"></a>
+                        <button type="submit">X</button>
+                    </div>
+                    <a href="{{ path('app_home') }}" class="modal-link">Accueil</a>
+                    <a href="#" class="modal-link">À propos</a>
+                    <a href="{{ path('app_services') }}" class="modal-link">Service</a>
+                    <a href="{{ path('app_devis_nouveau') }}" class="modal-link">Demande de Devis</a>
+                    <a href="{{ path('app_contact') }}" class="modal-link">Contact</a>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <div class="dropdown">
+                            <button class="dropdown-toggle">
+                                👤 {{ app.user.prenom }}
+                            </button>
+                            <div class="dropdown-menu">
+                                <a href="{{ path('app_profil') }}" class="modal-connect">Votre profil</a>
+                                <a href="{{ path('app_edit_profil') }}" class="modal-connect">Modifier le profil</a>
+                                <a href="{{ path('app_logout') }}" class="modal-connect">Déconnexion</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <a href="{{ path('app_login') }}" class="modal-connect">Se Connecter</a>
+                        <a href="{{ path('app_register') }}" class="modal-connect">Inscription</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+</header>

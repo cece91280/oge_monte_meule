@@ -24,15 +24,18 @@ class DevisTypeForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-
             ->add('volume', NumberType::class, [
                 'required' => false,
                 'label' => 'Volume approximatif (m²)',
                 'attr' => ['placeholder' => 'Ex: 20m²',]
 
             ])
-            ->add('dateDemenagement', DateTimeType::class, [
+            ->add('date_demenagement', DateTimeType::class, [
                 'widget' => 'single_text',
+                'required' => true,
+
+
+
             ])
             ->add('adressesArriver', AdressesTypeForm::class, [
                 'label' => false,
@@ -40,7 +43,6 @@ class DevisTypeForm extends AbstractType
             ->add('adressesDepart', AdressesTypeForm::class, [
                 'label' => false,
             ])
-
             ->add('commentaire', TextareaType::class, [
                 'required' => false,
                 'label' => 'Commentaires ou précisions supplémentaires',

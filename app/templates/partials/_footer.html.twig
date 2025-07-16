@@ -1,0 +1,48 @@
+<footer>
+    {% block footer %}
+
+        <div class="footer-content">
+            <h2>À propos de nous</h2>
+            <p>Entreprise de déménagement professionnelle avec plus de 5 ans d'expérience. Nous offrons des services
+                complets pour les particuliers et les entreprises.</p>
+            <div class="social-icons">
+                <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <use xlink:href="{{ asset('img/sprite.svg') }}#facebook"></use>
+                </svg>
+                <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <use xlink:href="{{ asset('img/sprite.svg') }}#instagram"></use>
+                </svg>
+            </div>
+        </div>
+        <div class="footer-links">
+            <h3>Liens rapides</h3>
+            <a href="{{ path('app_home') }}" class="footer-link">Accueil</a>
+            <a href="#" class="footer-link">À propos</a>
+            <a href="{{ path('app_services') }}" class="footer-link">Services</a>
+            <a href="{{ path('app_devis_nouveau') }}" class="footer-link">Demande un Devis</a>
+            <a href="{{ path('app_contact') }}" class="footer-link">Contact</a>
+        </div>
+        <div class="footer-contact">
+            <h4>Contact</h4>
+            <div class="contact-item">
+                <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <use xlink:href="{{ asset('img/sprite.svg') }}#mail"></use>
+                </svg>
+                <p>oge.montemeuble@gmail.com</p>
+            </div>
+            <div class="contact-item">
+                <svg width="30" height="30" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <use xlink:href="{{ asset('img/sprite.svg') }}#phone"></use>
+                </svg>
+                <p>07 67 16 11 72</p>
+            </div>
+        </div>
+        <div class="footer-hours">
+            <h5>Horaires d'ouverture</h5>
+            <p>Du lundi au samedi de 7h00 à 19h00</p>
+        </div>
+        <hr class="footer-divider">
+        <p class="copyright">© 2025 OgeMonteMeuble - Tous droits réservés</p>
+
+    {% endblock %}
+</footer>

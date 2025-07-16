@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('js/calendrier.js') }}" defer></script>
+
 {% endblock %}
 {% block title %}Créer un devis{% endblock %}
 
 {% block body %}
+    {% include 'partials/_header.html.twig' %}
     <section class="hero">
         <img src="{{ asset('img/Devis.png') }}" alt="Services">
         <div class="hero-content">
@@ -42,8 +43,7 @@
     {# Informations générales #}
     <h3>Informations générales</h3>
     {{ form_row(form.volume) }}
-    {{ form_row(form.dateDemenagement) }}
-
+    {{ form_row(form.date_demenagement)}}
     {# Adresse de départ #}
     <h3>Adresse de départ</h3>
     {{ form_row(form.adressesDepart.adresse_nom) }}
@@ -104,4 +104,5 @@
 
     {{ form_end(form) }}
 </div>
+    {% include 'partials/_footer.html.twig' %}
 {%  endblock %}
